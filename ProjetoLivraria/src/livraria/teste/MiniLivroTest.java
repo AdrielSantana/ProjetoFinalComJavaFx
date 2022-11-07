@@ -2,11 +2,10 @@ package livraria.teste;
 
 import livraria.Autor;
 import livraria.produtos.*;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class MiniLivroTest {
+public class MiniLivroTest {
 
     @Test
     public void compareTo(){

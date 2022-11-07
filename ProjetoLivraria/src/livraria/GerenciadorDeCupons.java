@@ -9,14 +9,20 @@ public class GerenciadorDeCupons {
     public GerenciadorDeCupons() {
 
         this.cupons = new HashMap<>(0);
-
-       cupons.put("cab11", 10.0);
-       cupons.put("cab22", 12.0);
-       cupons.put("cab33", 13.0);
-       cupons.put("cab44", 14.0);
+        
+        cupons.put("off13", 13.0);
     }
 
-    public Double validaCupom(String cupom){
+    public boolean adicionaCupom(String cupom, Double valor) {
+        if (cupons.containsKey(cupom)) {
+            return false;
+        } else {
+            cupons.put(cupom, valor);
+            return true;
+        }
+    }
+
+    public Double validaCupom(String cupom) {
         return this.cupons.get(cupom);
     }
 

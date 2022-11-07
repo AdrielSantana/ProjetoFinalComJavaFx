@@ -2,15 +2,13 @@ package livraria.teste;
 
 import livraria.Autor;
 import livraria.produtos.*;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class EbookTest {
+public class EbookTest {
 
     @Test
-
-    public void aplicaDesconto(){
+    public void aplicaDesconto() {
         Autor autor = new Autor();
         autor.setNome("Mauricio Aniche");
         Ebook ebook = new Ebook(autor);
@@ -18,8 +16,6 @@ class EbookTest {
         ebook.setValor(29.90);
 
         assertEquals(true, ebook.aplicaDescontoDe(0.15));
-
-
     }
 
 }
