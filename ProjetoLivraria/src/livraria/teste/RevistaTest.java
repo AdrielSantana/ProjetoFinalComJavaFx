@@ -20,4 +20,24 @@ public class RevistaTest  {
         assertEquals(false, revista.aplicaDescontoDe(0.6));
     }
 
+    @Test
+    public void compareTo(){
+        Editora editora = new Editora();
+        editora.setNomeFantasia("Colibra");
+
+        Revista revista = new Revista();
+        revista.setEditora(editora);
+        revista.setValor(29.90);
+
+        Revista revista2 = new Revista();
+        revista.setEditora(editora);
+        revista.setValor(22.90);
+
+        assertEquals(1,revista.compareTo(revista2));
+        assertEquals(-1,revista2.compareTo(revista));
+
+    }
+
+
+
 }
