@@ -1,4 +1,4 @@
-package br.com.casadocodigo.livraria;
+package livraria;
 
 public class Editora {
     private String nomeFantasia;

@@ -1,5 +1,4 @@
-package br.com.casadocodigo.livraria.produtos;
-
+package livraria.produtos;
 
 public interface Produto extends Comparable<Produto> {
 

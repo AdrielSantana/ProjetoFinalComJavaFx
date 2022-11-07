@@ -1,6 +1,6 @@
-package br.com.casadocodigo.livraria.produtos;
+package livraria.produtos;
 
-import br.com.casadocodigo.livraria.Autor;
+import livraria.Autor;
 
 public class MiniLivro extends Livro {
 

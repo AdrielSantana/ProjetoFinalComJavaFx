@@ -1,4 +1,4 @@
-package br.com.casadocodigo.livraria.produtos;
+package livraria.produtos;
 
 @FunctionalInterface
 public interface Promocional {
