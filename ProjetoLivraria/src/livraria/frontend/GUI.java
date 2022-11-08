@@ -1,7 +1,6 @@
 package livraria.frontend;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.*;
@@ -24,8 +23,8 @@ public class GUI {
         return userField.getText();
     }
 
-    public String getPasswordField() {
-        return passwordField.getText();
+    public char[] getPasswordField() {
+        return passwordField.getPassword();
     }
 
     public void setSuccessLabel(String text) {

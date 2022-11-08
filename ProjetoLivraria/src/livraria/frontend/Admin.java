@@ -9,9 +9,10 @@ public class Admin implements ActionListener  {
     @Override
     public void actionPerformed(ActionEvent e) {
         String user = gui.getUserField();
-        String password = gui.getPasswordField();
+        char[] password = gui.getPasswordField();
+        String pass = new String(password);
 
-        if(user.equals("admin") && password.equals("admin")){
+        if(user.equals("admin") && pass.equals("admin")){
             gui.setSuccessLabel("Entrou com sucesso!");
         } else {
             gui.setSuccessLabel("Usuário ou senha errados.");
