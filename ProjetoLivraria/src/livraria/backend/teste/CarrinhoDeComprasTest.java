@@ -1,6 +1,7 @@
 package livraria.backend.teste;
 
 import livraria.backend.Autor;
+import livraria.backend.CarrinhoDeCompras;
 import livraria.backend.produtos.*;
 import org.junit.Test;
 import static org.junit.Assert.*;

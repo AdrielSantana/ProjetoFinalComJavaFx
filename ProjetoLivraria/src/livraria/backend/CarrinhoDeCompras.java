@@ -1,7 +1,9 @@
-package livraria.backend.produtos;
+package livraria.backend;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import livraria.backend.produtos.Produto;
 
 public class CarrinhoDeCompras {
     private double total;
