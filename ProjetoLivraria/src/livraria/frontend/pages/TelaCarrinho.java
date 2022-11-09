@@ -7,7 +7,6 @@ import javax.swing.*;
 
 import livraria.backend.CarrinhoDeCompras;
 import livraria.backend.Usuario;
-import livraria.frontend.btnaction.IrParaMenu;
 import livraria.frontend.btnaction.MenuBtnAction;
 
 public class TelaCarrinho extends JFrame {

@@ -8,18 +8,26 @@ import javax.swing.*;
 import livraria.backend.Usuario;
 import livraria.frontend.btnaction.CarrinhoBtnAction;
 import livraria.frontend.btnaction.LoginBtnAction;
+import livraria.frontend.btnaction.AdicionarLivroBtnAction;
 
 public class Menu extends JFrame {
     private Usuario usuario;
     private String permissaoDeUsuario;
 
-    private static JButton carrinhoBtn;
     private static JPanel panel;
     private static JPanel menuListPanel;
     private static JLabel titleLabel;
     private static JLabel userLabel;
 
+    private static JButton carrinhoBtn;
+    private static JButton adicionarLivroBtn;
+    private static JLabel permissionDeniedLabel;
+    
     private static JButton voltarAoLoginBtn;
+
+    public void setPermissionDeniedLabel(String text) {
+        permissionDeniedLabel.setText(text);
+    }
 
     public Menu(Usuario usuario) {
         this.usuario = usuario;
@@ -64,5 +72,13 @@ public class Menu extends JFrame {
         carrinhoBtn.addMouseListener(new CarrinhoBtnAction(this, this.usuario));
         menuListPanel.add(carrinhoBtn);
 
+        adicionarLivroBtn = new JButton("Adicionar Livro");
+        adicionarLivroBtn.setBounds(80, 50, 200, 25);
+        adicionarLivroBtn.addMouseListener(new AdicionarLivroBtnAction(this, this.usuario));
+        menuListPanel.add(adicionarLivroBtn);
+
+        permissionDeniedLabel = new JLabel("");
+        permissionDeniedLabel.setBounds(80, 200, 200, 25);
+        menuListPanel.add(permissionDeniedLabel);
     }
 }
