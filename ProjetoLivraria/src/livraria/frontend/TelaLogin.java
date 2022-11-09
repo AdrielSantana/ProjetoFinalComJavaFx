@@ -5,8 +5,7 @@ import java.awt.Font;
 
 import javax.swing.*;
 
-public class GUI {
-    private static JFrame frame;
+public class TelaLogin extends JFrame {
     private static JPanel panel;
     private static JPanel adminPanel;
     private static JLabel titleLabel;
@@ -18,6 +17,10 @@ public class GUI {
     private static JButton confirmAdminBtn;
     private static JButton enterClienteBtn;
     private static JLabel successLabel;
+
+    TelaLogin() {
+        iniciarTela();
+    }
 
     public String getUserField() {
         return userField.getText();
@@ -31,15 +34,14 @@ public class GUI {
         successLabel.setText(text);
     }
 
-    public static void main(String[] args) {
-        frame = new JFrame();
-        frame.setSize(650, 500);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    private void iniciarTela() {
+        setSize(650, 500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         panel = new JPanel();
         panel.setLayout(null);
         panel.setBackground(new Color(44, 139, 59));
-        frame.add(panel);
+        add(panel);
 
         titleLabel = new JLabel("Bem vindo a Livraria Carrara");
         titleLabel.setBounds(130, 50, 400, 25);
@@ -75,7 +77,7 @@ public class GUI {
 
         confirmAdminBtn = new JButton("Entrar");
         confirmAdminBtn.setBounds(130, 160, 80, 25);
-        confirmAdminBtn.addActionListener(new Admin());
+        confirmAdminBtn.addMouseListener(new AdminBtnAction(this));
         adminPanel.add(confirmAdminBtn);
 
         successLabel = new JLabel("");
@@ -84,9 +86,11 @@ public class GUI {
 
         enterClienteBtn = new JButton("Entrar como usuário");
         enterClienteBtn.setBounds(245, 350, 160, 25);
-        enterClienteBtn.addActionListener(new Cliente());
+        enterClienteBtn.addMouseListener(new ClienteBtnAction(this));
         panel.add(enterClienteBtn);
+    }
 
-        frame.setVisible(true);
+    public static void main(String[] args) {
+        new TelaLogin().setVisible(true);
     }
 }

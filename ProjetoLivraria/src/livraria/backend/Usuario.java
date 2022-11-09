@@ -2,12 +2,13 @@ package livraria.backend;
 
 public class Usuario {
     private Boolean permissao;
+    private CarrinhoDeCompras carrinho;
 
-    public Usuario(Boolean user) {
-        permissao = user;
+    public Usuario(Boolean permissao) {
+        this.permissao = permissao;
     }
 
     public Boolean getPermissao() {
-        return permissao;
+        return this.permissao;
     }
 }
