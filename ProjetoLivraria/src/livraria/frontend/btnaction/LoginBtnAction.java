@@ -1,21 +1,23 @@
-package livraria.frontend;
+package livraria.frontend.btnaction;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JFrame;
 import javax.swing.event.MouseInputListener;
 
-import livraria.backend.Usuario;
+import livraria.frontend.MudarTela;
+import livraria.frontend.pages.TelaLogin;
 
-public class ClienteBtnAction implements MouseInputListener {
-    private TelaLogin login;
+public class LoginBtnAction implements MouseInputListener {
+    private JFrame tela;
 
-    public ClienteBtnAction(TelaLogin login) {
-        this.login = login;
+    public LoginBtnAction(JFrame tela) {
+        this.tela = tela;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        Usuario usuario = new Usuario(false);
-        login.dispose();
-        new Menu(usuario).setVisible(true);
+
+        new MudarTela(tela, new TelaLogin());
     }
 
     @Override

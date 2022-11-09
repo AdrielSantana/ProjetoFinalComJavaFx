@@ -1,9 +1,12 @@
-package livraria.frontend;
+package livraria.frontend.pages;
 
 import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.*;
+
+import livraria.frontend.btnaction.AdminBtnAction;
+import livraria.frontend.btnaction.ClienteBtnAction;
 
 public class TelaLogin extends JFrame {
     private static JPanel panel;
@@ -18,7 +21,7 @@ public class TelaLogin extends JFrame {
     private static JButton enterClienteBtn;
     private static JLabel successLabel;
 
-    TelaLogin() {
+    public TelaLogin() {
         iniciarTela();
     }
 
