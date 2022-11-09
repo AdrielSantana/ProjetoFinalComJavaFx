@@ -89,8 +89,4 @@ public class TelaLogin extends JFrame {
         enterClienteBtn.addMouseListener(new ClienteBtnAction(this));
         panel.add(enterClienteBtn);
     }
-
-    public static void main(String[] args) {
-        new TelaLogin().setVisible(true);
-    }
 }
