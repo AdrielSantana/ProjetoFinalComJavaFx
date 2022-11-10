@@ -4,10 +4,11 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.*;
+import java.awt.event.*;
 
 import livraria.backend.CarrinhoDeCompras;
 import livraria.backend.Usuario;
-import livraria.frontend.btnaction.MenuBtnAction;
+import livraria.frontend.MudarTela;
 
 public class TelaCarrinho extends JFrame {
     private Usuario usuario;
@@ -40,7 +41,11 @@ public class TelaCarrinho extends JFrame {
 
         voltarAoMenuBtn = new JButton("Voltar ao Menu");
         voltarAoMenuBtn.setBounds(400, 50, 150, 25);
-        voltarAoMenuBtn.addMouseListener(new MenuBtnAction(this, usuario));
+        voltarAoMenuBtn.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                menuBtnAction();
+            }
+        });
         panel.add(voltarAoMenuBtn);
 
         menuListPanel = new JPanel();
@@ -48,5 +53,9 @@ public class TelaCarrinho extends JFrame {
         menuListPanel.setBounds(150, 100, 350, 300);
         menuListPanel.setBackground(Color.lightGray);
         panel.add(menuListPanel);
+    }
+
+    private void menuBtnAction(){
+        new MudarTela(this, new Menu(usuario));
     }
 }

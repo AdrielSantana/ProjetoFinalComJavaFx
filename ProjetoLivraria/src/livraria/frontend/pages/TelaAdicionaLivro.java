@@ -12,7 +12,7 @@ import livraria.backend.Usuario;
 import livraria.backend.produtos.Ebook;
 import livraria.backend.produtos.LivroFisico;
 import livraria.backend.produtos.MiniLivro;
-import livraria.frontend.btnaction.MenuBtnAction;
+import livraria.frontend.MudarTela;
 
 public class TelaAdicionaLivro extends JFrame {
     private Usuario usuario;
@@ -64,7 +64,11 @@ public class TelaAdicionaLivro extends JFrame {
 
         voltarAoMenuBtn = new JButton("Voltar ao Menu");
         voltarAoMenuBtn.setBounds(400, 50, 150, 25);
-        voltarAoMenuBtn.addMouseListener(new MenuBtnAction(this, usuario));
+        voltarAoMenuBtn.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                menuBtnAction();
+            }
+        });
         panel.add(voltarAoMenuBtn);
 
         menuListPanel = new JPanel();
@@ -151,6 +155,10 @@ public class TelaAdicionaLivro extends JFrame {
         adicionarLivroLabel = new JLabel("");
         adicionarLivroLabel.setBounds(200, 170, 130, 25);
         menuListPanel.add(adicionarLivroLabel);
+    }
+
+    private void menuBtnAction() {
+        new MudarTela(this, new Menu(usuario));
     }
 
     private void adicionaLivroBtnAction() {

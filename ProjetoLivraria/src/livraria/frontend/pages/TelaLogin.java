@@ -3,10 +3,11 @@ package livraria.frontend.pages;
 import java.awt.Color;
 import java.awt.Font;
 
+import java.awt.event.*;
 import javax.swing.*;
 
-import livraria.frontend.btnaction.AdminBtnAction;
-import livraria.frontend.btnaction.ClienteBtnAction;
+import livraria.backend.Usuario;
+import livraria.frontend.MudarTela;
 
 public class TelaLogin extends JFrame {
     private static JPanel panel;
@@ -23,18 +24,6 @@ public class TelaLogin extends JFrame {
 
     public TelaLogin() {
         iniciarTela();
-    }
-
-    public String getUserField() {
-        return userField.getText();
-    }
-
-    public char[] getPasswordField() {
-        return passwordField.getPassword();
-    }
-
-    public void setSuccessLabel(String text) {
-        successLabel.setText(text);
     }
 
     private void iniciarTela() {
@@ -80,7 +69,11 @@ public class TelaLogin extends JFrame {
 
         confirmAdminBtn = new JButton("Entrar");
         confirmAdminBtn.setBounds(130, 160, 80, 25);
-        confirmAdminBtn.addMouseListener(new AdminBtnAction(this));
+        confirmAdminBtn.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                adminBtnAction();
+            }
+        });
         adminPanel.add(confirmAdminBtn);
 
         successLabel = new JLabel("");
@@ -89,7 +82,30 @@ public class TelaLogin extends JFrame {
 
         enterClienteBtn = new JButton("Entrar como cliente");
         enterClienteBtn.setBounds(245, 350, 160, 25);
-        enterClienteBtn.addMouseListener(new ClienteBtnAction(this));
+        enterClienteBtn.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                clienteBtnAction();
+            }
+        });
         panel.add(enterClienteBtn);
+    }
+
+    private void clienteBtnAction() {
+        Usuario usuario = new Usuario(false);
+        new MudarTela(this, new Menu(usuario));
+    }
+
+    private void adminBtnAction() {
+        String user = userField.getText();
+        char[] password = passwordField.getPassword();
+        String pass = new String(password);
+
+        if (user.equals("admin") && pass.equals("admin")) {
+            Usuario usuario = new Usuario(true);
+
+            new MudarTela(this, new Menu(usuario));
+        } else {
+            successLabel.setText("Usuário ou senha errados.");
+        }
     }
 }

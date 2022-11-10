@@ -4,11 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.*;
+import java.awt.event.*;
 
 import livraria.backend.Usuario;
-import livraria.frontend.btnaction.CarrinhoBtnAction;
-import livraria.frontend.btnaction.LoginBtnAction;
-import livraria.frontend.btnaction.AdicionarLivroBtnAction;
+import livraria.frontend.MudarTela;
 
 public class Menu extends JFrame {
     private Usuario usuario;
@@ -24,10 +23,6 @@ public class Menu extends JFrame {
     private static JLabel permissionDeniedLabel;
     
     private static JButton voltarAoLoginBtn;
-
-    public void setPermissionDeniedLabel(String text) {
-        permissionDeniedLabel.setText(text);
-    }
 
     public Menu(Usuario usuario) {
         this.usuario = usuario;
@@ -53,7 +48,11 @@ public class Menu extends JFrame {
 
         voltarAoLoginBtn = new JButton("Sair");
         voltarAoLoginBtn.setBounds(20, 80, 60, 25);
-        voltarAoLoginBtn.addMouseListener(new LoginBtnAction(this));
+        voltarAoLoginBtn.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                loginBtnAction();
+            }
+        });
         panel.add(voltarAoLoginBtn);
 
         titleLabel = new JLabel("Tela de Menu");
@@ -69,16 +68,41 @@ public class Menu extends JFrame {
 
         carrinhoBtn = new JButton("Carrinho de compras");
         carrinhoBtn.setBounds(80, 20, 200, 25);
-        carrinhoBtn.addMouseListener(new CarrinhoBtnAction(this, this.usuario));
+        carrinhoBtn.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                carrinhoBtnAction();
+            }
+        });
         menuListPanel.add(carrinhoBtn);
 
         adicionarLivroBtn = new JButton("Adicionar Livro");
         adicionarLivroBtn.setBounds(80, 50, 200, 25);
-        adicionarLivroBtn.addMouseListener(new AdicionarLivroBtnAction(this, this.usuario));
+        adicionarLivroBtn.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                adicionaLivroBtnAction();
+            }
+        });
         menuListPanel.add(adicionarLivroBtn);
 
         permissionDeniedLabel = new JLabel("");
         permissionDeniedLabel.setBounds(100, 180, 200, 25);
         menuListPanel.add(permissionDeniedLabel);
+    }
+
+    private void loginBtnAction(){
+        new MudarTela(this, new TelaLogin());
+    }
+
+
+    private void carrinhoBtnAction(){
+        new MudarTela(this, new TelaCarrinho(this.usuario));
+    }
+
+    private void adicionaLivroBtnAction(){
+        if (usuario.getPermissao()) {
+            new MudarTela(this, new TelaAdicionaLivro(usuario));
+        } else {
+            permissionDeniedLabel.setText("Usuário precisa ser Admin");
+        }
     }
 }
