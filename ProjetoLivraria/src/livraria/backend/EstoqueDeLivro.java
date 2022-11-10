@@ -17,9 +17,16 @@ public class EstoqueDeLivro {
         }
     }
 
-    public static boolean removeLivro(String nome) {
+    public static boolean removeLivro(String nome, int quantidade) {
+        Livro livro = EstoqueDeLivro.achaLivro(nome);
+        
         if (livros.containsKey(nome)) {
-            livros.remove(nome);
+            if (quantidade >= EstoqueDeLivro.achaLivro(nome).getQuantidade()){
+                livros.remove(nome);
+            } else {
+                livro.setQuantidade(livro.getQuantidade() - quantidade);
+                livros.replace(nome, livro);
+            }
             return true;
         } else {
             return false;

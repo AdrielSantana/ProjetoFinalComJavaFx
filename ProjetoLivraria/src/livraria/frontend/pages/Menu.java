@@ -19,9 +19,9 @@ public class Menu extends JFrame {
     private static JLabel userLabel;
 
     private static JButton carrinhoBtn;
-    private static JButton adicionarLivroBtn;
+    private static JButton administrarLivrosBtn;
     private static JLabel permissionDeniedLabel;
-    
+
     private static JButton voltarAoLoginBtn;
 
     public Menu(Usuario usuario) {
@@ -55,7 +55,7 @@ public class Menu extends JFrame {
         });
         panel.add(voltarAoLoginBtn);
 
-        titleLabel = new JLabel("Tela de Menu");
+        titleLabel = new JLabel("Menu da livraria");
         titleLabel.setBounds(220, 50, 400, 25);
         titleLabel.setFont(new Font("Arial", Font.PLAIN, 30));
         panel.add(titleLabel);
@@ -75,32 +75,31 @@ public class Menu extends JFrame {
         });
         menuListPanel.add(carrinhoBtn);
 
-        adicionarLivroBtn = new JButton("Adicionar Livro");
-        adicionarLivroBtn.setBounds(80, 50, 200, 25);
-        adicionarLivroBtn.addMouseListener(new MouseAdapter() {
+        administrarLivrosBtn = new JButton("Administrar Livros");
+        administrarLivrosBtn.setBounds(80, 50, 200, 25);
+        administrarLivrosBtn.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
-                adicionaLivroBtnAction();
+                administrarLivrosBtnAction();
             }
         });
-        menuListPanel.add(adicionarLivroBtn);
+        menuListPanel.add(administrarLivrosBtn);
 
         permissionDeniedLabel = new JLabel("");
         permissionDeniedLabel.setBounds(100, 180, 200, 25);
         menuListPanel.add(permissionDeniedLabel);
     }
 
-    private void loginBtnAction(){
+    private void loginBtnAction() {
         new MudarTela(this, new TelaLogin());
     }
 
-
-    private void carrinhoBtnAction(){
+    private void carrinhoBtnAction() {
         new MudarTela(this, new TelaCarrinho(this.usuario));
     }
 
-    private void adicionaLivroBtnAction(){
+    private void administrarLivrosBtnAction() {
         if (usuario.getPermissao()) {
-            new MudarTela(this, new TelaAdicionaLivro(usuario));
+            new MudarTela(this, new MenuAdmin(usuario));
         } else {
             permissionDeniedLabel.setText("Usuário precisa ser Admin");
         }

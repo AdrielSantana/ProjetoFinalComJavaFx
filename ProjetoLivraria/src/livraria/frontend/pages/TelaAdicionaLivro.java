@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.event.*;
 import javax.swing.*;
 
+import org.w3c.dom.Text;
+
 import livraria.backend.Autor;
 import livraria.backend.EstoqueDeLivro;
 import livraria.backend.Usuario;
@@ -28,6 +30,9 @@ public class TelaAdicionaLivro extends JFrame {
 
     private static JLabel valorLabel;
     private static JTextField valorField;
+
+    private static JLabel quantidadeLabel;
+    private static JTextField quantidadeField;
 
     private static JLabel isbnLabel;
     private static JTextField isbnField;
@@ -111,35 +116,59 @@ public class TelaAdicionaLivro extends JFrame {
         valorField.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-                if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
-                    e.consume(); // if it's not a number, ignore the event
+                if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE) && (c != '.')) {
+                    e.consume();
+                }
+                if ((valorField.getText().contains(".")) && c == '.') {
+                    e.consume();
                 }
             }
         });
         menuListPanel.add(valorField);
 
+        quantidadeLabel = new JLabel("Quantidade:");
+        quantidadeLabel.setBounds(20, 180, 100, 25);
+        menuListPanel.add(quantidadeLabel);
+
+        quantidadeField = new JTextField();
+        quantidadeField.setBounds(90, 180, 100, 25);
+        quantidadeField.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+
+                if (quantidadeField.getText().isEmpty() && ((c < '1') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+                    e.consume();
+                }
+                
+                if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+                    e.consume();
+                }
+            }
+        });
+        menuListPanel.add(quantidadeField);
+
         isbnLabel = new JLabel("Isbn:");
-        isbnLabel.setBounds(20, 180, 50, 25);
+        isbnLabel.setBounds(20, 220, 50, 25);
         menuListPanel.add(isbnLabel);
 
         isbnField = new JTextField();
-        isbnField.setBounds(90, 180, 100, 25);
+        isbnField.setBounds(90, 220, 100, 25);
         isbnField.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
                 if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE) && (c != '-')) {
-                    e.consume(); // if it's not a number, ignore the event
+                    e.consume();
                 }
             }
         });
         menuListPanel.add(isbnField);
 
         autorLabel = new JLabel("Autor:");
-        autorLabel.setBounds(20, 220, 80, 25);
+        autorLabel.setBounds(20, 260, 80, 25);
         menuListPanel.add(autorLabel);
 
         autorField = new JTextField();
-        autorField.setBounds(90, 220, 100, 25);
+        autorField.setBounds(90, 260, 100, 25);
         menuListPanel.add(autorField);
 
         adicionarLivroBtn = new JButton("Adicionar livro");
@@ -158,11 +187,18 @@ public class TelaAdicionaLivro extends JFrame {
     }
 
     private void menuBtnAction() {
-        new MudarTela(this, new Menu(usuario));
+        new MudarTela(this, new MenuAdmin(usuario));
     }
 
     private void adicionaLivroBtnAction() {
-        if (valorField.getText().isEmpty() || nomeDoLivroField.getText().isEmpty()) {
+        Boolean checaCampos = (nomeDoLivroField.getText().isEmpty() ||
+                descricaoField.getText().isEmpty() ||
+                (valorField.getText().isEmpty() || valorField.getText().equals(".")) ||
+                quantidadeField.getText().isEmpty() ||
+                isbnField.getText().isEmpty() ||
+                autorField.getText().isEmpty());
+
+        if (checaCampos) {
             adicionarLivroLabel.setText("Preencha os campos");
         } else {
             String nome = nomeDoLivroField.getText();
@@ -171,6 +207,7 @@ public class TelaAdicionaLivro extends JFrame {
                 String livroSelecionado = selectLivroBox.getItemAt(selectLivroBox.getSelectedIndex());
                 String nomeDoAutor = autorField.getText();
                 String descricao = descricaoField.getText();
+                int quantidade = Integer.parseInt(quantidadeField.getText());
                 String isbn = isbnField.getText();
 
                 double valor = Double.parseDouble(valorField.getText());
@@ -185,6 +222,7 @@ public class TelaAdicionaLivro extends JFrame {
                         livroFisico.setDescricao(descricao);
                         livroFisico.setIsbn(isbn);
                         livroFisico.setValor(valor);
+                        livroFisico.setQuantidade(quantidade);
 
                         EstoqueDeLivro.adicionaLivro(nome, livroFisico);
                         break;
@@ -194,6 +232,7 @@ public class TelaAdicionaLivro extends JFrame {
                         ebook.setDescricao(descricao);
                         ebook.setIsbn(isbn);
                         ebook.setValor(valor);
+                        ebook.setQuantidade(quantidade);
 
                         EstoqueDeLivro.adicionaLivro(nome, ebook);
                         break;
@@ -203,6 +242,7 @@ public class TelaAdicionaLivro extends JFrame {
                         miniLivro.setDescricao(descricao);
                         miniLivro.setIsbn(isbn);
                         miniLivro.setValor(valor);
+                        miniLivro.setQuantidade(quantidade);
 
                         EstoqueDeLivro.adicionaLivro(nome, miniLivro);
                         break;

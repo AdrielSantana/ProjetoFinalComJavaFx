@@ -6,12 +6,14 @@ public abstract class Livro{
     private String nome;
     private String descricao;
     private double valor;
+    private int quantidade;
     private String isbn;
     private Autor autor;
     private boolean impresso;
 
     public Livro(Autor autor) {
         this();
+        this.quantidade = 1;
         this.autor = autor;
         this.impresso = true;
     }
@@ -51,6 +53,18 @@ public abstract class Livro{
 
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        if (quantidade <= 0) {
+            this.quantidade = 1;
+        } else{
+            this.quantidade = quantidade;
+        }
     }
 
     public String getIsbn() {

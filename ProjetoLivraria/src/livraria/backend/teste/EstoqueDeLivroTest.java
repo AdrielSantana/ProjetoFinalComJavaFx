@@ -26,11 +26,12 @@ public class EstoqueDeLivroTest {
         autor.setNome("Mauricio Aniche");
         LivroFisico fisico = new LivroFisico(autor);
         fisico.setNome("Test-Driven Development");
+        fisico.setQuantidade(10);
         fisico.setValor(35.90);
 
         EstoqueDeLivro.adicionaLivro("livro fisico", fisico);
 
-        assertEquals(true, EstoqueDeLivro.removeLivro("livro fisico"));
+        assertEquals(true, EstoqueDeLivro.removeLivro("livro fisico", 9));
     }
 
     @Test
