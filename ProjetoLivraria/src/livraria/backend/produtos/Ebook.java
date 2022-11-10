@@ -8,6 +8,7 @@ public class Ebook extends Livro implements Promocional {
 
     public Ebook(Autor autor) {
         super(autor);
+        this.setImpresso(false);
     }
 
     public String getWaterMark() {

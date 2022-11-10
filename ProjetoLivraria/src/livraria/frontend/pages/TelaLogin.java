@@ -87,7 +87,7 @@ public class TelaLogin extends JFrame {
         successLabel.setBounds(100, 190, 300, 25);
         adminPanel.add(successLabel);
 
-        enterClienteBtn = new JButton("Entrar como usuário");
+        enterClienteBtn = new JButton("Entrar como cliente");
         enterClienteBtn.setBounds(245, 350, 160, 25);
         enterClienteBtn.addMouseListener(new ClienteBtnAction(this));
         panel.add(enterClienteBtn);

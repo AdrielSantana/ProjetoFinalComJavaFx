@@ -5,14 +5,10 @@ import java.util.Map;
 
 import livraria.backend.produtos.Livro;
 
-public class EstoqueLivro {
-    private Map<String, Livro> livros;
+public class EstoqueDeLivro {
+    private static Map<String, Livro> livros = new HashMap<>(0);
 
-    public EstoqueLivro() {
-        this.livros = new HashMap<>(0);
-    }
-
-    public boolean adicionaLivro(String nome, Livro livro) {
+    public static boolean adicionaLivro(String nome, Livro livro) {
         if (livros.containsKey(nome)) {
             return false;
         } else {
@@ -21,7 +17,7 @@ public class EstoqueLivro {
         }
     }
 
-    public boolean removeLivro(String nome) {
+    public static boolean removeLivro(String nome) {
         if (livros.containsKey(nome)) {
             livros.remove(nome);
             return true;
@@ -30,7 +26,7 @@ public class EstoqueLivro {
         }
     }
 
-    public Livro achaLivro(String nome) {
-        return this.livros.get(nome);
+    public static Livro achaLivro(String nome) {
+        return livros.get(nome);
     }
 }

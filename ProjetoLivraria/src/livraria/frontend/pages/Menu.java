@@ -78,7 +78,7 @@ public class Menu extends JFrame {
         menuListPanel.add(adicionarLivroBtn);
 
         permissionDeniedLabel = new JLabel("");
-        permissionDeniedLabel.setBounds(80, 200, 200, 25);
+        permissionDeniedLabel.setBounds(100, 180, 200, 25);
         menuListPanel.add(permissionDeniedLabel);
     }
 }

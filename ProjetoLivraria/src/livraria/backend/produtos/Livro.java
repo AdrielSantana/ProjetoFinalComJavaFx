@@ -20,20 +20,6 @@ public abstract class Livro implements Produto {
         this.isbn = "000-00-0000-00-0";
     }
 
-    public void mostrarDetalhes() {
-        System.out.println("Mostrando detalhes do livro");
-        System.out.println("Nome: " + nome);
-        System.out.println("Descrição: " + descricao);
-        System.out.println("Valor: " + valor);
-        System.out.println("ISBN: " + isbn);
-        if(this.temAutor()){
-            autor.mostrarDetalhes();
-        }
-        System.out.println("---");
-    }
-
-
-
                                        // A palavra reservada this é usada para mostrar que valor é um atributo
                                       // da classe , é sempre usar para mostrar o que é um atributo da classe e
                                       // não parecer uma simples variavel
