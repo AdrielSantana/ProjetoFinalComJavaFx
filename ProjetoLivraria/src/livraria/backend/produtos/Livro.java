@@ -2,7 +2,7 @@ package livraria.backend.produtos;
 
 import livraria.backend.Autor;
 
-public abstract class Livro implements Produto {
+public abstract class Livro{
     private String nome;
     private String descricao;
     private double valor;

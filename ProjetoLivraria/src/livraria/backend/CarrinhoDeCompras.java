@@ -3,18 +3,18 @@ package livraria.backend;
 import java.util.ArrayList;
 import java.util.List;
 
-import livraria.backend.produtos.Produto;
+import livraria.backend.produtos.Livro;
 
 public class CarrinhoDeCompras {
     private double total;
-    private List<Produto> produtos;
+    private List<Livro> produtos;
 
     public CarrinhoDeCompras() {
-        this.produtos = new ArrayList<Produto>();
+        this.produtos = new ArrayList<Livro>();
     }
 
-    public boolean adiciona(Produto produto){
-        this.produtos.add(produto);
+    public boolean adiciona(Livro livro){
+        this.produtos.add(livro);
 
         if(!produtos.isEmpty()){
             return true;
@@ -23,8 +23,8 @@ public class CarrinhoDeCompras {
         }
     }
 
-    public boolean remove(Produto produto){
-        this.produtos.remove(produto);
+    public boolean remove(Livro livro){
+        this.produtos.remove(livro);
 
         if(produtos.isEmpty()){
             return true;
@@ -38,7 +38,7 @@ public class CarrinhoDeCompras {
         return total;
     }
 
-    public List<Produto> getProdutos(){
+    public List<Livro> getProdutos(){
         return produtos;
     }
 

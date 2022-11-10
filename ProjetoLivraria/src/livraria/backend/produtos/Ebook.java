@@ -2,7 +2,7 @@ package livraria.backend.produtos;
 
 import livraria.backend.Autor;
 
-public class Ebook extends Livro implements Promocional {
+public class Ebook extends Livro{
 
     private String waterMark;
 
@@ -17,26 +17,5 @@ public class Ebook extends Livro implements Promocional {
 
     public void setWaterMark(String waterMark) {
         this.waterMark = waterMark;
-    }
-
-    @Override
-    public boolean aplicaDescontoDe (double porcentagem){
-        if(porcentagem > 0.15){
-            return false;
-        }
-        double desconto = this.getValor() * porcentagem;
-        this.setValor(this.getValor() - desconto);
-        System.out.println("aplicando desconto " + getValor());
-        return true;
-    }
-
-    public int compareTo(Produto outro){
-        if(this.getValor() < outro.getValor()){
-            return -1;
-        }
-        if(this.getValor() > outro.getValor()){
-            return 1;
-        }
-        return 0;
     }
 }
