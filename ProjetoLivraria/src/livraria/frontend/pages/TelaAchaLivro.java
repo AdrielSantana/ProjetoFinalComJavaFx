@@ -131,7 +131,11 @@ public class TelaAchaLivro extends JFrame {
     }
 
     private void menuBtnAction() {
-        new MudarTela(this, new MenuAdmin(usuario));
+        if (usuario.getPermissao()){
+            new MudarTela(this, new MenuAdmin(usuario));
+        } else {
+            new MudarTela(this, new Menu(usuario));
+        }
     }
 
     private void achaLivroBtnAction() {

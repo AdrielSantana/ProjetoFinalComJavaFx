@@ -19,6 +19,7 @@ public class Menu extends JFrame {
     private static JLabel userLabel;
 
     private static JButton carrinhoBtn;
+    private static JButton achaLivroBtn;
     private static JButton administrarLivrosBtn;
     private static JLabel permissionDeniedLabel;
 
@@ -75,8 +76,17 @@ public class Menu extends JFrame {
         });
         menuListPanel.add(carrinhoBtn);
 
+        achaLivroBtn = new JButton("Achar livro");
+        achaLivroBtn.setBounds(80, 50, 200, 25);
+        achaLivroBtn.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                achaLivroBtnAction();
+            }
+        });
+        menuListPanel.add(achaLivroBtn);
+
         administrarLivrosBtn = new JButton("Administrar Livros");
-        administrarLivrosBtn.setBounds(80, 50, 200, 25);
+        administrarLivrosBtn.setBounds(80, 80, 200, 25);
         administrarLivrosBtn.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
                 administrarLivrosBtnAction();
@@ -91,6 +101,10 @@ public class Menu extends JFrame {
 
     private void loginBtnAction() {
         new MudarTela(this, new TelaLogin());
+    }
+
+    private void achaLivroBtnAction(){
+        new MudarTela(this, new TelaAchaLivro(this.usuario));
     }
 
     private void carrinhoBtnAction() {
