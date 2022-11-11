@@ -35,7 +35,12 @@ public class CarrinhoDeCompras {
     }
 
     public double getTotal() {
-        return total;
+        double soma = 0;
+        for (Livro produto : produtos) {
+            soma += produto.getValor();
+        };
+        this.total = soma;
+        return this.total;
     }
 
     public List<Livro> getProdutos(){

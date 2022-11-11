@@ -49,4 +49,24 @@ public class EstoqueDeLivroTest {
         assertEquals(null, EstoqueDeLivro.achaLivro("livro digital"));
     }
 
+    @Test
+    public void alteraLivro() {
+        Autor autor = new Autor();
+        autor.setNome("Mauricio Aniche");
+        LivroFisico fisico = new LivroFisico(autor);
+        fisico.setNome("Test-Driven Development");
+        fisico.setValor(35.90);
+
+        EstoqueDeLivro.adicionaLivro("livro fisico", fisico);
+
+        Autor autor2 = new Autor();
+        autor.setNome("Mauricio Aniche");
+        LivroFisico fisico2 = new LivroFisico(autor2);
+        fisico.setNome("Test-Driven Development2");
+        fisico.setValor(35.90);
+
+        assertEquals(true, EstoqueDeLivro.alteraLivro("livro fisico", fisico2));
+        assertEquals(fisico2, EstoqueDeLivro.achaLivro("livro fisico"));
+    }
+
 }

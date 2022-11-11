@@ -14,7 +14,7 @@ import livraria.backend.produtos.LivroFisico;
 import livraria.backend.produtos.MiniLivro;
 import livraria.frontend.MudarTela;
 
-public class TelaAdicionaLivro extends JFrame {
+public class TelaAlteraLivro extends JFrame {
     private Usuario usuario;
 
     private static JLabel selectLivroLabel;
@@ -43,10 +43,10 @@ public class TelaAdicionaLivro extends JFrame {
     private static JPanel menuListPanel;
     private static JLabel titleLabel;
 
-    private static JButton adicionarLivroBtn;
-    private static JLabel adicionarLivroLabel;
+    private static JButton alterarLivroBtn;
+    private static JLabel alterarLivroLabel;
 
-    public TelaAdicionaLivro(Usuario usuario) {
+    public TelaAlteraLivro(Usuario usuario) {
         this.usuario = usuario;
         iniciarTela();
     }
@@ -60,7 +60,7 @@ public class TelaAdicionaLivro extends JFrame {
         panel.setBackground(new Color(44, 139, 59));
         add(panel);
 
-        titleLabel = new JLabel("Adicionar Livro");
+        titleLabel = new JLabel("Altera Livro");
         titleLabel.setBounds(150, 50, 270, 25);
         titleLabel.setFont(new Font("Arial", Font.PLAIN, 30));
         panel.add(titleLabel);
@@ -76,7 +76,7 @@ public class TelaAdicionaLivro extends JFrame {
 
         menuListPanel = new JPanel();
         menuListPanel.setLayout(null);
-        menuListPanel.setBounds(150, 100, 350, 300);
+        menuListPanel.setBounds(150, 100, 350, 350);
         menuListPanel.setBackground(Color.lightGray);
         panel.add(menuListPanel);
 
@@ -89,28 +89,28 @@ public class TelaAdicionaLivro extends JFrame {
         selectLivroBox.setBounds(190, 20, 90, 25);
         menuListPanel.add(selectLivroBox);
 
-        nomeDoLivroLabel = new JLabel("Nome:");
-        nomeDoLivroLabel.setBounds(20, 60, 50, 25);
+        nomeDoLivroLabel = new JLabel("Nome do livro para achar:");
+        nomeDoLivroLabel.setBounds(20, 60, 250, 25);
         menuListPanel.add(nomeDoLivroLabel);
 
         nomeDoLivroField = new JTextField();
-        nomeDoLivroField.setBounds(90, 60, 100, 25);
+        nomeDoLivroField.setBounds(20, 90, 100, 25);
         menuListPanel.add(nomeDoLivroField);
 
         descricaoLabel = new JLabel("Descricao:");
-        descricaoLabel.setBounds(20, 100, 80, 25);
+        descricaoLabel.setBounds(20, 140, 80, 25);
         menuListPanel.add(descricaoLabel);
 
         descricaoField = new JTextField();
-        descricaoField.setBounds(90, 100, 100, 25);
+        descricaoField.setBounds(90, 140, 100, 25);
         menuListPanel.add(descricaoField);
 
         valorLabel = new JLabel("Valor:");
-        valorLabel.setBounds(20, 140, 50, 25);
+        valorLabel.setBounds(20, 180, 50, 25);
         menuListPanel.add(valorLabel);
 
         valorField = new JTextField();
-        valorField.setBounds(90, 140, 100, 25);
+        valorField.setBounds(90, 180, 100, 25);
         valorField.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
@@ -128,11 +128,11 @@ public class TelaAdicionaLivro extends JFrame {
         menuListPanel.add(valorField);
 
         quantidadeLabel = new JLabel("Quantidade:");
-        quantidadeLabel.setBounds(20, 180, 100, 25);
+        quantidadeLabel.setBounds(20, 220, 100, 25);
         menuListPanel.add(quantidadeLabel);
 
         quantidadeField = new JTextField();
-        quantidadeField.setBounds(90, 180, 100, 25);
+        quantidadeField.setBounds(90, 220, 100, 25);
         quantidadeField.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
@@ -140,7 +140,7 @@ public class TelaAdicionaLivro extends JFrame {
                 if (quantidadeField.getText().isEmpty() && ((c < '1') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
                     e.consume();
                 }
-
+                
                 if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
                     e.consume();
                 }
@@ -149,11 +149,11 @@ public class TelaAdicionaLivro extends JFrame {
         menuListPanel.add(quantidadeField);
 
         isbnLabel = new JLabel("Isbn:");
-        isbnLabel.setBounds(20, 220, 50, 25);
+        isbnLabel.setBounds(20, 260, 50, 25);
         menuListPanel.add(isbnLabel);
 
         isbnField = new JTextField();
-        isbnField.setBounds(90, 220, 100, 25);
+        isbnField.setBounds(90, 260, 100, 25);
         isbnField.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
@@ -165,33 +165,33 @@ public class TelaAdicionaLivro extends JFrame {
         menuListPanel.add(isbnField);
 
         autorLabel = new JLabel("Autor:");
-        autorLabel.setBounds(20, 260, 80, 25);
+        autorLabel.setBounds(20, 300, 80, 25);
         menuListPanel.add(autorLabel);
 
         autorField = new JTextField();
-        autorField.setBounds(90, 260, 100, 25);
+        autorField.setBounds(90, 300, 100, 25);
         menuListPanel.add(autorField);
 
-        adicionarLivroBtn = new JButton("Adicionar livro");
-        adicionarLivroBtn.setBounds(200, 140, 130, 25);
-        adicionarLivroBtn.setFont(new Font("Arial", Font.PLAIN, 15));
-        adicionarLivroBtn.addMouseListener(new MouseAdapter() {
+        alterarLivroBtn = new JButton("Alterar livro");
+        alterarLivroBtn.setBounds(200, 140, 130, 25);
+        alterarLivroBtn.setFont(new Font("Arial", Font.PLAIN, 15));
+        alterarLivroBtn.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
-                adicionaLivroBtnAction();
+                alteraLivroBtnAction();
             }
         });
-        menuListPanel.add(adicionarLivroBtn);
+        menuListPanel.add(alterarLivroBtn);
 
-        adicionarLivroLabel = new JLabel("");
-        adicionarLivroLabel.setBounds(200, 170, 130, 25);
-        menuListPanel.add(adicionarLivroLabel);
+        alterarLivroLabel = new JLabel("");
+        alterarLivroLabel.setBounds(200, 170, 130, 25);
+        menuListPanel.add(alterarLivroLabel);
     }
 
     private void menuBtnAction() {
         new MudarTela(this, new MenuAdmin(usuario));
     }
 
-    private void adicionaLivroBtnAction() {
+    private void alteraLivroBtnAction() {
         Boolean checaCampos = (nomeDoLivroField.getText().isEmpty() ||
                 descricaoField.getText().isEmpty() ||
                 valorField.getText().isEmpty() ||
@@ -200,11 +200,11 @@ public class TelaAdicionaLivro extends JFrame {
                 autorField.getText().isEmpty());
 
         if (checaCampos) {
-            adicionarLivroLabel.setText("Preencha os campos");
+            alterarLivroLabel.setText("Preencha os campos");
         } else {
             String nome = nomeDoLivroField.getText();
 
-            if (EstoqueDeLivro.achaLivro(nome) == null) {
+            if (EstoqueDeLivro.achaLivro(nome) != null) {
                 String livroSelecionado = selectLivroBox.getItemAt(selectLivroBox.getSelectedIndex());
                 String nomeDoAutor = autorField.getText();
                 String descricao = descricaoField.getText();
@@ -225,7 +225,7 @@ public class TelaAdicionaLivro extends JFrame {
                         livroFisico.setValor(valor);
                         livroFisico.setQuantidade(quantidade);
 
-                        EstoqueDeLivro.adicionaLivro(nome, livroFisico);
+                        EstoqueDeLivro.alteraLivro(nome, livroFisico);
                         break;
                     case "Ebook":
                         Ebook ebook = new Ebook(autor);
@@ -235,7 +235,7 @@ public class TelaAdicionaLivro extends JFrame {
                         ebook.setValor(valor);
                         ebook.setQuantidade(quantidade);
 
-                        EstoqueDeLivro.adicionaLivro(nome, ebook);
+                        EstoqueDeLivro.alteraLivro(nome, ebook);
                         break;
                     case "Mini Livro":
                         MiniLivro miniLivro = new MiniLivro(autor);
@@ -245,15 +245,15 @@ public class TelaAdicionaLivro extends JFrame {
                         miniLivro.setValor(valor);
                         miniLivro.setQuantidade(quantidade);
 
-                        EstoqueDeLivro.adicionaLivro(nome, miniLivro);
+                        EstoqueDeLivro.alteraLivro(nome, miniLivro);
                         break;
                     default:
                         break;
                 }
 
-                adicionarLivroLabel.setText("Livro adicionado");
+                alterarLivroLabel.setText("Livro alterado");
             } else {
-                adicionarLivroLabel.setText("Livro já existe");
+                alterarLivroLabel.setText("Livro não existe");
             }
         }
     }

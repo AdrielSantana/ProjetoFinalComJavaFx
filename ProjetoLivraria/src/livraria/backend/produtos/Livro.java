@@ -2,7 +2,7 @@ package livraria.backend.produtos;
 
 import livraria.backend.Autor;
 
-public abstract class Livro{
+public abstract class Livro implements Cloneable {
     private String nome;
     private String descricao;
     private double valor;
@@ -12,23 +12,14 @@ public abstract class Livro{
     private boolean impresso;
 
     public Livro(Autor autor) {
-        this();
         this.quantidade = 1;
         this.autor = autor;
         this.impresso = true;
     }
 
-    public  Livro(){
-        this.isbn = "000-00-0000-00-0";
-    }
-
-                                       // A palavra reservada this é usada para mostrar que valor é um atributo
-                                      // da classe , é sempre usar para mostrar o que é um atributo da classe e
-                                      // não parecer uma simples variavel
-
-
-    boolean temAutor(){
-        return this.autor !=null;
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     public String getNome() {
@@ -62,7 +53,7 @@ public abstract class Livro{
     public void setQuantidade(int quantidade) {
         if (quantidade <= 0) {
             this.quantidade = 1;
-        } else{
+        } else {
             this.quantidade = quantidade;
         }
     }

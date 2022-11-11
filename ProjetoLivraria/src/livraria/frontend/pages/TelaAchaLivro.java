@@ -6,7 +6,9 @@ import java.awt.Font;
 import java.awt.event.*;
 import javax.swing.*;
 
+import livraria.backend.EstoqueDeLivro;
 import livraria.backend.Usuario;
+import livraria.backend.produtos.Livro;
 import livraria.frontend.MudarTela;
 
 public class TelaAchaLivro extends JFrame {
@@ -16,6 +18,28 @@ public class TelaAchaLivro extends JFrame {
     private static JPanel panel;
     private static JPanel menuListPanel;
     private static JLabel titleLabel;
+
+    private static JLabel nomeDoLivroLabel;
+    private static JTextField nomeDoLivroField;
+
+    private static JButton acharLivroBtn;
+    private static JLabel acharLivroLabel;
+
+    private static JLabel nomeDoLivroAchadoLabel;
+
+    private static JLabel descricaoLabel;
+
+    private static JLabel valorLabel;
+
+    private static JLabel quantidadeLabel;
+
+    private static JLabel isbnLabel;
+
+    private static JLabel autorLabel;
+
+    private static JLabel impressoLabel;
+
+    private static JLabel nomeDaClasseLabel;
 
     public TelaAchaLivro(Usuario usuario) {
         this.usuario = usuario;
@@ -47,12 +71,99 @@ public class TelaAchaLivro extends JFrame {
 
         menuListPanel = new JPanel();
         menuListPanel.setLayout(null);
-        menuListPanel.setBounds(150, 100, 350, 300);
+        menuListPanel.setBounds(150, 100, 350, 330);
         menuListPanel.setBackground(Color.lightGray);
         panel.add(menuListPanel);
+
+        nomeDoLivroLabel = new JLabel("Nome do livro para achar:");
+        nomeDoLivroLabel.setBounds(20, 20, 250, 25);
+        menuListPanel.add(nomeDoLivroLabel);
+
+        nomeDoLivroField = new JTextField();
+        nomeDoLivroField.setBounds(20, 50, 100, 25);
+        menuListPanel.add(nomeDoLivroField);
+
+        acharLivroBtn = new JButton("Achar livro");
+        acharLivroBtn.setBounds(200, 20, 130, 25);
+        acharLivroBtn.setFont(new Font("Arial", Font.PLAIN, 15));
+        acharLivroBtn.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                achaLivroBtnAction();
+            }
+        });
+        menuListPanel.add(acharLivroBtn);
+
+        acharLivroLabel = new JLabel("");
+        acharLivroLabel.setBounds(200, 50, 130, 25);
+        menuListPanel.add(acharLivroLabel);
+
+        nomeDoLivroAchadoLabel = new JLabel("");
+        nomeDoLivroAchadoLabel.setBounds(20, 80, 300, 25);
+        menuListPanel.add(nomeDoLivroAchadoLabel);
+
+        descricaoLabel = new JLabel("");
+        descricaoLabel.setBounds(20, 110, 300, 25);
+        menuListPanel.add(descricaoLabel);
+
+        valorLabel = new JLabel("");
+        valorLabel.setBounds(20, 140, 300, 25);
+        menuListPanel.add(valorLabel);
+
+        quantidadeLabel = new JLabel("");
+        quantidadeLabel.setBounds(20, 170, 300, 25);
+        menuListPanel.add(quantidadeLabel);
+
+        isbnLabel = new JLabel("");
+        isbnLabel.setBounds(20, 200, 300, 25);
+        menuListPanel.add(isbnLabel);
+
+        autorLabel = new JLabel("");
+        autorLabel.setBounds(20, 230, 300, 25);
+        menuListPanel.add(autorLabel);
+
+        impressoLabel = new JLabel("");
+        impressoLabel.setBounds(20, 260, 300, 25);
+        menuListPanel.add(impressoLabel);
+
+        nomeDaClasseLabel = new JLabel("");
+        nomeDaClasseLabel.setBounds(20, 290, 300, 25);
+        menuListPanel.add(nomeDaClasseLabel);
     }
 
     private void menuBtnAction() {
         new MudarTela(this, new MenuAdmin(usuario));
+    }
+
+    private void achaLivroBtnAction() {
+        Boolean checaCampos = nomeDoLivroField.getText().isEmpty();
+
+        if (checaCampos) {
+            acharLivroLabel.setText("Preencha os campos");
+        } else {
+            String nome = nomeDoLivroField.getText();
+            Livro livro = EstoqueDeLivro.achaLivro(nome);
+
+            if (livro == null) {
+                acharLivroLabel.setText("Livro não existe");
+            } else {
+                String descricao = livro.getDescricao();
+                String valor = String.valueOf(livro.getValor());
+                String quantidade = String.valueOf(livro.getQuantidade());
+                String isbn = livro.getIsbn();
+                String autor = livro.getAutor().getNome();
+                String impresso = livro.isImpresso() ? "Sim" : "Não";
+                Class<? extends Livro> classe = livro.getClass();
+                String nomeDaClasse = classe.getSimpleName();
+                
+                nomeDoLivroAchadoLabel.setText("Nome: " + nome);
+                descricaoLabel.setText("Descricao: " + descricao);
+                valorLabel.setText("Valor: " + valor);
+                quantidadeLabel.setText("Quantidade: " + quantidade);
+                isbnLabel.setText("Isbn: " + isbn);
+                autorLabel.setText("Autor: " + autor);
+                impressoLabel.setText("Impresso: " + impresso);
+                nomeDaClasseLabel.setText("Tipo do livro: "  + nomeDaClasse);
+            }
+        }
     }
 }

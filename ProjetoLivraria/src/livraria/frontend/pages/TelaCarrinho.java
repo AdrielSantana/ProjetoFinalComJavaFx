@@ -7,7 +7,9 @@ import javax.swing.*;
 import java.awt.event.*;
 
 import livraria.backend.CarrinhoDeCompras;
+import livraria.backend.EstoqueDeLivro;
 import livraria.backend.Usuario;
+import livraria.backend.produtos.Livro;
 import livraria.frontend.MudarTela;
 
 public class TelaCarrinho extends JFrame {
@@ -18,6 +20,21 @@ public class TelaCarrinho extends JFrame {
     private static JPanel panel;
     private static JPanel menuListPanel;
     private static JLabel titleLabel;
+
+    private static JLabel nomeDoLivroLabel;
+    private static JTextField nomeDoLivroField;
+
+    private static JLabel quantidadeLabel;
+    private static JTextField quantidadeField;
+
+    private static JLabel totalDeLivrosLabel;
+    private static JLabel precoTotalLabel;
+
+    private static JButton adicionarLivroAoCarrinhoBtn;
+    private static JButton removerLivroDoCarrinhoBtn;
+
+    private static JLabel mensagemAdicionarLivroAoCarrinho;
+    private static JLabel mensagemRemoverLivroDoCarrinho;
 
     public TelaCarrinho(Usuario usuario) {
         this.usuario = usuario;
@@ -53,9 +70,110 @@ public class TelaCarrinho extends JFrame {
         menuListPanel.setBounds(150, 100, 350, 300);
         menuListPanel.setBackground(Color.lightGray);
         panel.add(menuListPanel);
+
+        nomeDoLivroLabel = new JLabel("Nome:");
+        nomeDoLivroLabel.setBounds(20, 20, 50, 25);
+        menuListPanel.add(nomeDoLivroLabel);
+
+        nomeDoLivroField = new JTextField();
+        nomeDoLivroField.setBounds(90, 20, 100, 25);
+        menuListPanel.add(nomeDoLivroField);
+
+        quantidadeLabel = new JLabel("Quantidade:");
+        quantidadeLabel.setBounds(20, 60, 80, 25);
+        menuListPanel.add(quantidadeLabel);
+
+        quantidadeField = new JTextField();
+        quantidadeField.setBounds(90, 60, 100, 25);
+        quantidadeField.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+                    e.consume();
+                }
+            }
+        });
+        menuListPanel.add(quantidadeField);
+
+        totalDeLivrosLabel = new JLabel("");
+        totalDeLivrosLabel.setBounds(220, 20, 150, 25);
+        menuListPanel.add(totalDeLivrosLabel);
+
+        precoTotalLabel = new JLabel("");
+        precoTotalLabel.setBounds(220, 60, 150, 25);
+        menuListPanel.add(precoTotalLabel);
+
+        adicionarLivroAoCarrinhoBtn = new JButton("Adicionar livro ao carrinho");
+        adicionarLivroAoCarrinhoBtn.setBounds(60, 140, 250, 25);
+        adicionarLivroAoCarrinhoBtn.setFont(new Font("Arial", Font.PLAIN, 15));
+        adicionarLivroAoCarrinhoBtn.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                try {
+                    adicionarLivroAoCarrinhoBtnAction();
+                } catch (CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        menuListPanel.add(adicionarLivroAoCarrinhoBtn);
+
+        mensagemAdicionarLivroAoCarrinho = new JLabel("");
+        mensagemAdicionarLivroAoCarrinho.setBounds(60, 170, 250, 25);
+        menuListPanel.add(mensagemAdicionarLivroAoCarrinho);
+
+        removerLivroDoCarrinhoBtn = new JButton("Remover livro do carrinho");
+        removerLivroDoCarrinhoBtn.setBounds(60, 200, 250, 25);
+        removerLivroDoCarrinhoBtn.setFont(new Font("Arial", Font.PLAIN, 15));
+        removerLivroDoCarrinhoBtn.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                removerLivroDoCarrinhoBtnAction();
+            }
+        });
+        menuListPanel.add(removerLivroDoCarrinhoBtn);
+
+        mensagemRemoverLivroDoCarrinho = new JLabel("");
+        mensagemRemoverLivroDoCarrinho.setBounds(60, 230, 250, 25);
+        menuListPanel.add(mensagemRemoverLivroDoCarrinho);
     }
 
-    private void menuBtnAction(){
+    private void menuBtnAction() {
         new MudarTela(this, new Menu(usuario));
+    }
+
+    private void adicionarLivroAoCarrinhoBtnAction() throws CloneNotSupportedException {
+        String nome = nomeDoLivroField.getText();
+        String quantidadeString = quantidadeField.getText();
+
+        Boolean checaCampos = (nome.isEmpty() ||
+                quantidadeString.isEmpty());
+
+        if (checaCampos) {
+            mensagemAdicionarLivroAoCarrinho.setText("Preencha os campos");
+        } else {
+            int quantidade = Integer.parseInt(quantidadeField.getText());
+            Livro livro = EstoqueDeLivro.achaLivro(nome);
+
+            if (livro == null) {
+                mensagemAdicionarLivroAoCarrinho.setText("Livro não encontrado");
+            } else {
+                if (quantidade >= livro.getQuantidade()) {
+                    quantidade = livro.getQuantidade();
+                }
+                Livro livroDoCarrinho = (Livro)livro.clone();
+                livroDoCarrinho.setQuantidade(quantidade);
+                carrinho.adiciona(livroDoCarrinho);
+
+                EstoqueDeLivro.removeLivro(nome, quantidade);
+
+                mensagemAdicionarLivroAoCarrinho.setText(quantidade + " livros adicionados ao carrinho");
+
+                totalDeLivrosLabel.setText("Livros: " + carrinho.getQtdLivros());
+                precoTotalLabel.setText("Preço: " + carrinho.getTotal());
+            }
+        }
+    }
+
+    private void removerLivroDoCarrinhoBtnAction() {
+
     }
 }

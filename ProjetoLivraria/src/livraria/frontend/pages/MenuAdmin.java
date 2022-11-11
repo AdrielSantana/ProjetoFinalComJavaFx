@@ -19,6 +19,7 @@ public class MenuAdmin extends JFrame {
     private static JButton adicionarLivroBtn;
     private static JButton removerLivroBtn;
     private static JButton acharLivroBtn;
+    private static JButton alterarLivroBtn;
 
     private static JButton voltarAoMenuBtn;
 
@@ -82,6 +83,15 @@ public class MenuAdmin extends JFrame {
             }
         });
         menuListPanel.add(acharLivroBtn);
+
+        alterarLivroBtn = new JButton("Alterar Livro");
+        alterarLivroBtn.setBounds(80, 110, 200, 25);
+        alterarLivroBtn.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                alterarLivroBtnAction();
+            }
+        });
+        menuListPanel.add(alterarLivroBtn);
     }
 
     private void MenuBtnAction() {
@@ -98,5 +108,9 @@ public class MenuAdmin extends JFrame {
 
     private void acharLivroBtnAction() {
         new MudarTela(this, new TelaAchaLivro(usuario));
+    }
+
+    private void alterarLivroBtnAction() {
+        new MudarTela(this, new TelaAlteraLivro(usuario));
     }
 }
