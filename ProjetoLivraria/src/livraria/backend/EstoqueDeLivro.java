@@ -8,38 +8,30 @@ import livraria.backend.produtos.Livro;
 public class EstoqueDeLivro {
     private static Map<String, Livro> livros = new HashMap<>(0);
 
-    public static boolean adicionaLivro(String nome, Livro livro) {
-        if (livros.containsKey(nome)) {
-            return false;
-        } else {
-            livros.put(nome, livro);
-            return true;
-        }
+    public static void adicionaLivro(String nome, Livro livro) {
+        livros.put(nome, livro);
     }
 
-    public static boolean removeLivro(String nome, int quantidade) {
-        Livro livro = EstoqueDeLivro.achaLivro(nome);
-
+    public static void removeLivro(String nome, int quantidade) {
         if (livros.containsKey(nome)) {
+            Livro livro = EstoqueDeLivro.achaLivro(nome);
             if (quantidade >= EstoqueDeLivro.achaLivro(nome).getQuantidade()) {
                 livros.remove(nome);
             } else {
                 livro.setQuantidade(livro.getQuantidade() - quantidade);
                 livros.replace(nome, livro);
             }
-            return true;
-        } else {
-            return false;
         }
     }
 
-    public static boolean alteraLivro(String nome, Livro livroNovo) {
-        if (livros.containsKey(nome)) {
-            livros.replace(nome, livroNovo);
-            return true;
-        } else {
-            return false;
-        }
+    public static void adicionaQtdLivros(String nome, int quantidade) {
+        Livro livro = achaLivro(nome);
+        livro.setQuantidade(livro.getQuantidade() + quantidade);
+        livros.replace(nome, livro);
+    }
+
+    public static void alteraLivro(String nome, Livro livroNovo) {
+        livros.replace(nome, livroNovo);
     }
 
     public static Livro achaLivro(String nome) {

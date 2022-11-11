@@ -1,53 +1,57 @@
 package livraria.backend;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import livraria.backend.produtos.Livro;
 
 public class CarrinhoDeCompras {
-    private double total;
-    private List<Livro> produtos;
+    private int precoTotal;
+    private int qtdTotal;
+    private Map<String, Livro> produtos;
 
     public CarrinhoDeCompras() {
-        this.produtos = new ArrayList<Livro>();
+        this.produtos = new HashMap<>(0);
     }
 
-    public boolean adiciona(Livro livro){
-        this.produtos.add(livro);
-
-        if(!produtos.isEmpty()){
-            return true;
-        }else {
-            return false;
-        }
+    public void adicionaQtdLivros(String nome, int quantidade) {
+        Livro livro = achaLivro(nome);
+        livro.setQuantidade(livro.getQuantidade() + quantidade);
+        produtos.replace(nome, livro);
     }
 
-    public boolean remove(Livro livro){
-        this.produtos.remove(livro);
+    public void adicionaLivro(String nome, Livro livro) {
+        produtos.put(nome, livro);
+    }
 
-        if(produtos.isEmpty()){
-            return true;
-        }else {
-            return false;
+    public Livro achaLivro(String nome) {
+        return produtos.get(nome);
+    }
+
+    public void removeLivro(String nome, int quantidade) {
+        Livro livro = achaLivro(nome);
+        if (quantidade >= achaLivro(nome).getQuantidade()) {
+            produtos.remove(nome);
+        } else {
+            livro.setQuantidade(livro.getQuantidade() - quantidade);
+            produtos.replace(nome, livro);
         }
-
     }
 
     public double getTotal() {
-        double soma = 0;
-        for (Livro produto : produtos) {
-            soma += produto.getValor();
-        };
-        this.total = soma;
-        return this.total;
+        this.precoTotal = 0;
+        produtos.forEach((nome, livro) -> {
+            this.precoTotal += livro.getQuantidade() * livro.getValor();
+        });
+        return this.precoTotal;
     }
 
-    public List<Livro> getProdutos(){
-        return produtos;
+    public int getQtdProdutos() {
+        this.qtdTotal = 0;
+        produtos.forEach((nome, livro) -> {
+            this.qtdTotal += livro.getQuantidade();
+        });
+        return this.qtdTotal;
     }
 
-    public int getQtdLivros(){
-        return produtos.size();
-    }
 }

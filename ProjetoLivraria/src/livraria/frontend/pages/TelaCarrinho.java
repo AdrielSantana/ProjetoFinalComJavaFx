@@ -126,7 +126,11 @@ public class TelaCarrinho extends JFrame {
         removerLivroDoCarrinhoBtn.setFont(new Font("Arial", Font.PLAIN, 15));
         removerLivroDoCarrinhoBtn.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
-                removerLivroDoCarrinhoBtnAction();
+                try {
+                    removerLivroDoCarrinhoBtnAction();
+                } catch (CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
             }
         });
         menuListPanel.add(removerLivroDoCarrinhoBtn);
@@ -159,21 +163,60 @@ public class TelaCarrinho extends JFrame {
                 if (quantidade >= livro.getQuantidade()) {
                     quantidade = livro.getQuantidade();
                 }
-                Livro livroDoCarrinho = (Livro)livro.clone();
+                Livro livroDoCarrinho = (Livro) livro.clone();
                 livroDoCarrinho.setQuantidade(quantidade);
-                carrinho.adiciona(livroDoCarrinho);
+
+                if (carrinho.achaLivro(nome) != null) {
+                    carrinho.adicionaQtdLivros(nome, quantidade);
+                } else {
+                    carrinho.adicionaLivro(nome, livroDoCarrinho);
+                }
 
                 EstoqueDeLivro.removeLivro(nome, quantidade);
 
-                mensagemAdicionarLivroAoCarrinho.setText(quantidade + " livros adicionados ao carrinho");
+                mensagemAdicionarLivroAoCarrinho.setText(quantidade + " livros " + nome + " adicionados ao carrinho");
 
-                totalDeLivrosLabel.setText("Livros: " + carrinho.getQtdLivros());
+                totalDeLivrosLabel.setText("Livros: " + carrinho.getQtdProdutos());
                 precoTotalLabel.setText("Preço: " + carrinho.getTotal());
             }
         }
     }
 
-    private void removerLivroDoCarrinhoBtnAction() {
+    private void removerLivroDoCarrinhoBtnAction() throws CloneNotSupportedException {
+        String nome = nomeDoLivroField.getText();
+        String quantidadeString = quantidadeField.getText();
 
+        Boolean checaCampos = (nome.isEmpty() ||
+                quantidadeString.isEmpty());
+
+        if (checaCampos) {
+            mensagemAdicionarLivroAoCarrinho.setText("Preencha os campos");
+        } else {
+            int quantidade = Integer.parseInt(quantidadeField.getText());
+            Livro livro = carrinho.achaLivro(nome);
+
+            if (livro == null) {
+                mensagemRemoverLivroDoCarrinho.setText("Livro não encontrado");
+            } else {
+                if (quantidade >= livro.getQuantidade()) {
+                    quantidade = livro.getQuantidade();
+                }
+                Livro livroDoEstoque = (Livro) livro.clone();
+                livroDoEstoque.setQuantidade(quantidade);
+
+                if (EstoqueDeLivro.achaLivro(nome) != null) {
+                    EstoqueDeLivro.adicionaQtdLivros(nome, quantidade);
+                } else {
+                    EstoqueDeLivro.adicionaLivro(nome, livroDoEstoque);
+                }
+
+                carrinho.removeLivro(nome, quantidade);
+
+                mensagemRemoverLivroDoCarrinho.setText(quantidade + " livros " + nome + " removidos do carrinho");
+
+                totalDeLivrosLabel.setText("Livros: " + carrinho.getQtdProdutos());
+                precoTotalLabel.setText("Preço: " + carrinho.getTotal());
+            }
+        }
     }
 }
