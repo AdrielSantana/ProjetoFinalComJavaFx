@@ -33,6 +33,8 @@ public class Menu extends JFrame {
     private void iniciarTela() {
         setSize(650, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
+        setLocationRelativeTo(null);
 
         panel = new JPanel();
         panel.setLayout(null);
