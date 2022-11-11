@@ -42,12 +42,20 @@ public abstract class Livro implements Cloneable {
         return valor;
     }
 
+    public String getValorString(){
+        return String.valueOf(this.getValor());
+    }
+
     public void setValor(double valor) {
         this.valor = valor;
     }
 
     public int getQuantidade() {
         return quantidade;
+    }
+
+    public String getQuantidadeString(){
+        return String.valueOf(this.getQuantidade());
     }
 
     public void setQuantidade(int quantidade) {

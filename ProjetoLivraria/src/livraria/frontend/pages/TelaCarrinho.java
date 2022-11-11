@@ -95,11 +95,11 @@ public class TelaCarrinho extends JFrame {
         });
         menuListPanel.add(quantidadeField);
 
-        totalDeLivrosLabel = new JLabel("");
+        totalDeLivrosLabel = new JLabel("Livros: " + carrinho.getQtdProdutos());
         totalDeLivrosLabel.setBounds(220, 20, 150, 25);
         menuListPanel.add(totalDeLivrosLabel);
 
-        precoTotalLabel = new JLabel("");
+        precoTotalLabel = new JLabel("Preço: " + carrinho.getTotal());
         precoTotalLabel.setBounds(220, 60, 150, 25);
         menuListPanel.add(precoTotalLabel);
 
@@ -190,7 +190,7 @@ public class TelaCarrinho extends JFrame {
                 quantidadeString.isEmpty());
 
         if (checaCampos) {
-            mensagemAdicionarLivroAoCarrinho.setText("Preencha os campos");
+            mensagemRemoverLivroDoCarrinho.setText("Preencha os campos");
         } else {
             int quantidade = Integer.parseInt(quantidadeField.getText());
             Livro livro = carrinho.achaLivro(nome);

@@ -147,11 +147,12 @@ public class TelaAchaLivro extends JFrame {
                 acharLivroLabel.setText("Livro não existe");
             } else {
                 String descricao = livro.getDescricao();
-                String valor = String.valueOf(livro.getValor());
-                String quantidade = String.valueOf(livro.getQuantidade());
+                String valor = livro.getValorString();
+                String quantidade = livro.getQuantidadeString();
                 String isbn = livro.getIsbn();
                 String autor = livro.getAutor().getNome();
                 String impresso = livro.isImpresso() ? "Sim" : "Não";
+                
                 Class<? extends Livro> classe = livro.getClass();
                 String nomeDaClasse = classe.getSimpleName();
                 

@@ -120,7 +120,8 @@ public class TelaAdicionaLivro extends JFrame {
                 if ((valorField.getText().contains(".")) && c == '.') {
                     e.consume();
                 }
-                if (valorField.getText().isEmpty() && (c == '.') && ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+                if (valorField.getText().isEmpty() && (c == '.') && ((c < '0') || (c > '9'))
+                        && (c != KeyEvent.VK_BACK_SPACE)) {
                     e.consume();
                 }
             }
@@ -136,11 +137,9 @@ public class TelaAdicionaLivro extends JFrame {
         quantidadeField.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-
                 if (quantidadeField.getText().isEmpty() && ((c < '1') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
                     e.consume();
                 }
-
                 if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
                     e.consume();
                 }
