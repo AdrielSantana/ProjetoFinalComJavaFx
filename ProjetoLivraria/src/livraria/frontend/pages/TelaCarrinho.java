@@ -6,7 +6,6 @@ import java.awt.Font;
 import javax.swing.*;
 import java.awt.event.*;
 
-import livraria.backend.CarrinhoDeCompras;
 import livraria.backend.EstoqueDeLivro;
 import livraria.backend.Usuario;
 import livraria.backend.produtos.Livro;
@@ -14,7 +13,6 @@ import livraria.frontend.MudarTela;
 
 public class TelaCarrinho extends JFrame {
     private Usuario usuario;
-    private CarrinhoDeCompras carrinho;
 
     private static JButton voltarAoMenuBtn;
     private static JPanel panel;
@@ -41,7 +39,6 @@ public class TelaCarrinho extends JFrame {
 
     public TelaCarrinho(Usuario usuario) {
         this.usuario = usuario;
-        this.carrinho = usuario.getCarrinho();
         iniciarTela();
     }
 
@@ -100,11 +97,11 @@ public class TelaCarrinho extends JFrame {
         });
         menuListPanel.add(quantidadeField);
 
-        totalDeLivrosLabel = new JLabel("Livros: " + carrinho.getQtdProdutos());
+        totalDeLivrosLabel = new JLabel("Livros: " + usuario.getCarrinho().getQtdProdutos());
         totalDeLivrosLabel.setBounds(220, 20, 150, 25);
         menuListPanel.add(totalDeLivrosLabel);
 
-        precoTotalLabel = new JLabel("Preço: " + carrinho.getPrecoTotal());
+        precoTotalLabel = new JLabel("Preço: " + usuario.getCarrinho().getPrecoTotal());
         precoTotalLabel.setBounds(220, 60, 150, 25);
         menuListPanel.add(precoTotalLabel);
 
@@ -164,12 +161,12 @@ public class TelaCarrinho extends JFrame {
     }
 
     private void finalizarCompraBtnAction() {
-        if (carrinho.getQtdProdutos() == 0) {
+        if (usuario.getCarrinho().getQtdProdutos() == 0) {
             mensagemFinalizarCompra.setText("Carrinho vazio, adicione produtos");
         } else {
-            carrinho.finalizarCompra();
-            totalDeLivrosLabel.setText("Livros: " + carrinho.getQtdProdutos());
-            precoTotalLabel.setText("Preço: " + carrinho.getPrecoTotal());
+            usuario.getCarrinho().finalizarCompra();
+            totalDeLivrosLabel.setText("Livros: " + usuario.getCarrinho().getQtdProdutos());
+            precoTotalLabel.setText("Preço: " + usuario.getCarrinho().getPrecoTotal());
             mensagemFinalizarCompra.setText("Compra finalizada");
         }
     }
@@ -196,18 +193,18 @@ public class TelaCarrinho extends JFrame {
                 Livro livroDoCarrinho = (Livro) livro.clone();
                 livroDoCarrinho.setQuantidade(quantidade);
 
-                if (carrinho.achaLivro(nome) != null) {
-                    carrinho.adicionaQtdLivros(nome, quantidade);
+                if (usuario.getCarrinho().achaLivro(nome) != null) {
+                    usuario.getCarrinho().adicionaQtdLivros(nome, quantidade);
                 } else {
-                    carrinho.adicionaLivro(nome, livroDoCarrinho);
+                    usuario.getCarrinho().adicionaLivro(nome, livroDoCarrinho);
                 }
 
                 EstoqueDeLivro.removeLivro(nome, quantidade);
 
                 mensagemAdicionarLivroAoCarrinho.setText(quantidade + " livros " + nome + " adicionados ao carrinho");
 
-                totalDeLivrosLabel.setText("Livros: " + carrinho.getQtdProdutos());
-                precoTotalLabel.setText("Preço: " + carrinho.getPrecoTotal());
+                totalDeLivrosLabel.setText("Livros: " + usuario.getCarrinho().getQtdProdutos());
+                precoTotalLabel.setText("Preço: " + usuario.getCarrinho().getPrecoTotal());
             }
         }
     }
@@ -223,7 +220,7 @@ public class TelaCarrinho extends JFrame {
             mensagemRemoverLivroDoCarrinho.setText("Preencha os campos");
         } else {
             int quantidade = Integer.parseInt(quantidadeField.getText());
-            Livro livro = carrinho.achaLivro(nome);
+            Livro livro = usuario.getCarrinho().achaLivro(nome);
 
             if (livro == null) {
                 mensagemRemoverLivroDoCarrinho.setText("Livro não encontrado");
@@ -240,12 +237,12 @@ public class TelaCarrinho extends JFrame {
                     EstoqueDeLivro.adicionaLivro(nome, livroDoEstoque);
                 }
 
-                carrinho.removeLivro(nome, quantidade);
+                usuario.getCarrinho().removeLivro(nome, quantidade);
 
                 mensagemRemoverLivroDoCarrinho.setText(quantidade + " livros " + nome + " removidos do carrinho");
 
-                totalDeLivrosLabel.setText("Livros: " + carrinho.getQtdProdutos());
-                precoTotalLabel.setText("Preço: " + carrinho.getPrecoTotal());
+                totalDeLivrosLabel.setText("Livros: " + usuario.getCarrinho().getQtdProdutos());
+                precoTotalLabel.setText("Preço: " + usuario.getCarrinho().getPrecoTotal());
             }
         }
     }

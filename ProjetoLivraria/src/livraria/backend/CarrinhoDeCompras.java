@@ -6,7 +6,7 @@ import java.util.Map;
 import livraria.backend.produtos.Livro;
 
 public class CarrinhoDeCompras {
-    private int precoTotal;
+    private double precoTotal;
     private int qtdTotal;
     private Map<String, Livro> produtos;
 
