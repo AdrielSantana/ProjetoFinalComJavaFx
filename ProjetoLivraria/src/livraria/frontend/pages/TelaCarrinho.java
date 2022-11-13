@@ -36,6 +36,9 @@ public class TelaCarrinho extends JFrame {
     private static JLabel mensagemAdicionarLivroAoCarrinho;
     private static JLabel mensagemRemoverLivroDoCarrinho;
 
+    private static JButton finalizarCompraBtn;
+    private static JLabel mensagemFinalizarCompra;
+
     public TelaCarrinho(Usuario usuario) {
         this.usuario = usuario;
         this.carrinho = usuario.getCarrinho();
@@ -101,12 +104,12 @@ public class TelaCarrinho extends JFrame {
         totalDeLivrosLabel.setBounds(220, 20, 150, 25);
         menuListPanel.add(totalDeLivrosLabel);
 
-        precoTotalLabel = new JLabel("Preço: " + carrinho.getTotal());
+        precoTotalLabel = new JLabel("Preço: " + carrinho.getPrecoTotal());
         precoTotalLabel.setBounds(220, 60, 150, 25);
         menuListPanel.add(precoTotalLabel);
 
         adicionarLivroAoCarrinhoBtn = new JButton("Adicionar livro ao carrinho");
-        adicionarLivroAoCarrinhoBtn.setBounds(60, 140, 250, 25);
+        adicionarLivroAoCarrinhoBtn.setBounds(60, 110, 250, 25);
         adicionarLivroAoCarrinhoBtn.setFont(new Font("Arial", Font.PLAIN, 15));
         adicionarLivroAoCarrinhoBtn.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
@@ -120,11 +123,11 @@ public class TelaCarrinho extends JFrame {
         menuListPanel.add(adicionarLivroAoCarrinhoBtn);
 
         mensagemAdicionarLivroAoCarrinho = new JLabel("");
-        mensagemAdicionarLivroAoCarrinho.setBounds(60, 170, 250, 25);
+        mensagemAdicionarLivroAoCarrinho.setBounds(60, 140, 250, 25);
         menuListPanel.add(mensagemAdicionarLivroAoCarrinho);
 
         removerLivroDoCarrinhoBtn = new JButton("Remover livro do carrinho");
-        removerLivroDoCarrinhoBtn.setBounds(60, 200, 250, 25);
+        removerLivroDoCarrinhoBtn.setBounds(60, 170, 250, 25);
         removerLivroDoCarrinhoBtn.setFont(new Font("Arial", Font.PLAIN, 15));
         removerLivroDoCarrinhoBtn.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
@@ -138,12 +141,37 @@ public class TelaCarrinho extends JFrame {
         menuListPanel.add(removerLivroDoCarrinhoBtn);
 
         mensagemRemoverLivroDoCarrinho = new JLabel("");
-        mensagemRemoverLivroDoCarrinho.setBounds(60, 230, 250, 25);
+        mensagemRemoverLivroDoCarrinho.setBounds(60, 200, 250, 25);
         menuListPanel.add(mensagemRemoverLivroDoCarrinho);
+
+        finalizarCompraBtn = new JButton("Remover livro do carrinho");
+        finalizarCompraBtn.setBounds(60, 230, 250, 25);
+        finalizarCompraBtn.setFont(new Font("Arial", Font.PLAIN, 15));
+        finalizarCompraBtn.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                finalizarCompraBtnAction();
+            }
+        });
+        menuListPanel.add(finalizarCompraBtn);
+
+        mensagemFinalizarCompra = new JLabel("");
+        mensagemFinalizarCompra.setBounds(60, 260, 250, 25);
+        menuListPanel.add(mensagemFinalizarCompra);
     }
 
     private void menuBtnAction() {
         new MudarTela(this, new Menu(usuario));
+    }
+
+    private void finalizarCompraBtnAction() {
+        if (carrinho.getQtdProdutos() == 0) {
+            mensagemFinalizarCompra.setText("Carrinho vazio, adicione produtos");
+        } else {
+            carrinho.finalizarCompra();
+            totalDeLivrosLabel.setText("Livros: " + carrinho.getQtdProdutos());
+            precoTotalLabel.setText("Preço: " + carrinho.getPrecoTotal());
+            mensagemFinalizarCompra.setText("Compra finalizada");
+        }
     }
 
     private void adicionarLivroAoCarrinhoBtnAction() throws CloneNotSupportedException {
@@ -179,7 +207,7 @@ public class TelaCarrinho extends JFrame {
                 mensagemAdicionarLivroAoCarrinho.setText(quantidade + " livros " + nome + " adicionados ao carrinho");
 
                 totalDeLivrosLabel.setText("Livros: " + carrinho.getQtdProdutos());
-                precoTotalLabel.setText("Preço: " + carrinho.getTotal());
+                precoTotalLabel.setText("Preço: " + carrinho.getPrecoTotal());
             }
         }
     }
@@ -217,7 +245,7 @@ public class TelaCarrinho extends JFrame {
                 mensagemRemoverLivroDoCarrinho.setText(quantidade + " livros " + nome + " removidos do carrinho");
 
                 totalDeLivrosLabel.setText("Livros: " + carrinho.getQtdProdutos());
-                precoTotalLabel.setText("Preço: " + carrinho.getTotal());
+                precoTotalLabel.setText("Preço: " + carrinho.getPrecoTotal());
             }
         }
     }

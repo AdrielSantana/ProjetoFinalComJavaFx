@@ -38,7 +38,7 @@ public class CarrinhoDeCompras {
         }
     }
 
-    public double getTotal() {
+    public double getPrecoTotal() {
         this.precoTotal = 0;
         produtos.forEach((nome, livro) -> {
             this.precoTotal += livro.getQuantidade() * livro.getValor();
@@ -54,4 +54,7 @@ public class CarrinhoDeCompras {
         return this.qtdTotal;
     }
 
+    public void finalizarCompra(){
+        this.produtos.clear();
+    }
 }
