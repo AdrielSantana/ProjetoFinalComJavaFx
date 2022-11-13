@@ -39,7 +39,7 @@ public class TelaAchaLivro extends JFrame {
 
     private static JLabel impressoLabel;
 
-    private static JLabel nomeDaClasseLabel;
+    private static JLabel miniLabel;
 
     public TelaAchaLivro(Usuario usuario) {
         this.usuario = usuario;
@@ -127,9 +127,9 @@ public class TelaAchaLivro extends JFrame {
         impressoLabel.setBounds(20, 260, 300, 25);
         menuListPanel.add(impressoLabel);
 
-        nomeDaClasseLabel = new JLabel("");
-        nomeDaClasseLabel.setBounds(20, 290, 300, 25);
-        menuListPanel.add(nomeDaClasseLabel);
+        miniLabel = new JLabel("");
+        miniLabel.setBounds(20, 290, 300, 25);
+        menuListPanel.add(miniLabel);
     }
 
     private void menuBtnAction() {
@@ -159,8 +159,7 @@ public class TelaAchaLivro extends JFrame {
                 String autor = livro.getAutor().getNome();
                 String impresso = livro.isImpresso() ? "Sim" : "Não";
                 
-                Class<? extends Livro> classe = livro.getClass();
-                String nomeDaClasse = classe.getSimpleName();
+                String mini = livro.isMini() ? "Sim" : "Não";
                 
                 nomeDoLivroAchadoLabel.setText("Nome: " + nome);
                 descricaoLabel.setText("Descricao: " + descricao);
@@ -169,7 +168,7 @@ public class TelaAchaLivro extends JFrame {
                 isbnLabel.setText("Isbn: " + isbn);
                 autorLabel.setText("Autor: " + autor);
                 impressoLabel.setText("Impresso: " + impresso);
-                nomeDaClasseLabel.setText("Tipo do livro: "  + nomeDaClasse);
+                miniLabel.setText("Mini: "  + mini);
             }
         }
     }

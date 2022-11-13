@@ -10,16 +10,26 @@ public abstract class Livro implements Cloneable {
     private String isbn;
     private Autor autor;
     private boolean impresso;
+    private boolean mini;
 
     public Livro(Autor autor) {
         this.quantidade = 1;
         this.autor = autor;
         this.impresso = true;
+        this.mini = false;
     }
 
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+
+    public boolean isMini(){
+        return mini;
+    }
+
+    public void setMini(boolean mini){
+        this.mini = mini;
     }
 
     public String getNome() {
