@@ -42,7 +42,7 @@ public abstract class Livro implements Cloneable {
         return valor;
     }
 
-    public String getValorString(){
+    public String getValorString() {
         return String.valueOf(this.getValor());
     }
 
@@ -54,7 +54,7 @@ public abstract class Livro implements Cloneable {
         return quantidade;
     }
 
-    public String getQuantidadeString(){
+    public String getQuantidadeString() {
         return String.valueOf(this.getQuantidade());
     }
 
