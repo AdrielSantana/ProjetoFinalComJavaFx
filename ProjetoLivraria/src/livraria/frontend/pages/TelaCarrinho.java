@@ -141,7 +141,7 @@ public class TelaCarrinho extends JFrame {
         mensagemRemoverLivroDoCarrinho.setBounds(60, 200, 250, 25);
         menuListPanel.add(mensagemRemoverLivroDoCarrinho);
 
-        finalizarCompraBtn = new JButton("Remover livro do carrinho");
+        finalizarCompraBtn = new JButton("Finalizar compra");
         finalizarCompraBtn.setBounds(60, 230, 250, 25);
         finalizarCompraBtn.setFont(new Font("Arial", Font.PLAIN, 15));
         finalizarCompraBtn.addMouseListener(new MouseAdapter() {

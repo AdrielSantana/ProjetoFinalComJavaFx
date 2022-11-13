@@ -17,10 +17,9 @@ public class EstoqueDeLivroTest {
         fisico.setNome("Javinha");
         fisico.setValor(36.5);
         fisico.setQuantidade(5);
-        EstoqueDeLivro livros = new EstoqueDeLivro();
-        livros.adicionaLivro("Javinha",fisico);
+        EstoqueDeLivro.adicionaLivro("Javinha",fisico);
 
-        assertEquals(fisico,livros.achaLivro("Javinha"));
+        assertEquals(fisico, EstoqueDeLivro.achaLivro("Javinha"));
     }
 
 }

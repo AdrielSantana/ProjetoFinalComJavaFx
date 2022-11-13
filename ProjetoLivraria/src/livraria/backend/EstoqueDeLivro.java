@@ -5,7 +5,7 @@ import java.util.Map;
 
 import livraria.backend.produtos.Livro;
 
-public class EstoqueDeLivro {
+public abstract class EstoqueDeLivro {
     private static Map<String, Livro> livros = new HashMap<>(0);
 
     public static void adicionaLivro(String nome, Livro livro) {
